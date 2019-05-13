@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">coindespenser</string>
+    <string name="title_activity_coin_dispenser">CoinDispenserActivity</string>
+</resources>
