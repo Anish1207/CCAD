@@ -5,8 +5,8 @@ android {
 
 
     defaultConfig {
-        applicationId "com.perpule.notedespencer"
-        minSdkVersion 17
+        applicationId "com.example.android.notedispenser"
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"

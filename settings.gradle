@@ -1,1 +1,1 @@
-include ':NoteAcceptor', ':serialcommunication'
+include ':NoteAcceptor', ':serialcommunication', ':notedispenser', ':coindispenser'

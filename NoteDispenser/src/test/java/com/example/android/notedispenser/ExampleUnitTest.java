@@ -1,4 +1,4 @@
-package com.perpule.notedespencer;
+package com.example.android.notedispenser;
 
 import org.junit.Test;
 

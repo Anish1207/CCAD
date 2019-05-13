@@ -1,4 +1,4 @@
-package com.perpule.notedespencer;
+package com.example.android.notedispenser;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.perpule.notedespencer", appContext.getPackageName());
+        assertEquals("com.example.android.notedispenser", appContext.getPackageName());
     }
 }

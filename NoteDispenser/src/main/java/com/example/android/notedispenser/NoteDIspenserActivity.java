@@ -1,4 +1,4 @@
-package com.perpule.ccad;
+package com.example.android.notedispenser;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -16,43 +16,45 @@ import android.widget.Toast;
 import com.perpule.serialcommunication.service.UsbService;
 import com.perpule.serialcommunication.usbserial.UsbSerialInterface;
 
-
-public class MainActivity extends AppCompatActivity implements UsbService.UsbServiceReadCallBack {
+public class NoteDispenserActivity extends AppCompatActivity implements UsbService.UsbServiceReadCallBack {
 
     public UsbService usbService;
-    public Button btnCashAcceptorConnect, btnCashAcceptorDisconnect;
+    public Button btnDispenseNoteConnect, btnDispenseNoteDisconnect;
+
     private BroadcastReceiver mUsbReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_note_dispenser);
         mUsbReceiver = new UsbBroadcastReceiver();
         initView();
     }
 
     private void initView() {
-        btnCashAcceptorConnect = findViewById(R.id.button1);
-        btnCashAcceptorDisconnect = findViewById(R.id.button2);
+
+        btnDispenseNoteConnect = findViewById(R.id.button1);
+        btnDispenseNoteDisconnect = findViewById(R.id.button2);
 
 
-        btnCashAcceptorConnect.setOnClickListener(new View.OnClickListener() {
+
+        btnDispenseNoteConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                usbService.setParity(UsbSerialInterface.PARITY_EVEN);
+                usbService.setParity(UsbSerialInterface.PARITY_NONE);
                 usbService.startThread();
-                usbService.write(new byte[]{0x30});
+                int checksum = 4^80^2^69^48^49^3;
+                usbService.write(new byte[]{4,80,2,69,48,49,3, (byte) checksum});
+
             }
         });
 
-        btnCashAcceptorDisconnect.setOnClickListener(new View.OnClickListener() {
+        btnDispenseNoteDisconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                usbService.write(new byte[]{0x5E});
+
             }
         });
-
-
     }
 
     private byte calcChecksum(byte[] data) {
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements UsbService.UsbSer
         @Override
         public void onServiceConnected(ComponentName arg0, IBinder arg1) {
             usbService = ((UsbService.UsbBinder) arg1).getService();
-            usbService.setUsbServiceReadCallBack(MainActivity.this);
+            usbService.setUsbServiceReadCallBack(NoteDispenserActivity.this);
         }
 
         @Override
